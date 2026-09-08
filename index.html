@@ -88,16 +88,30 @@
     background:var(--shade);
   }
 
+  /* ---------- Section headings ---------- */
+  .section-head{
+    margin:0 0 3.5vh;
+    text-align:center;
+    color:var(--butter);
+    font-size:max(20px,2vw);
+    line-height:1.3;
+    letter-spacing:-0.015em;
+    font-weight:400;
+    font-variation-settings:'SOFT' 0,'opsz' 144,'WONK' 0;
+  }
+
   /* ---------- 3. Vertical diptych ---------- */
   .diptych{
     background:var(--shade);
+    padding:6vh 4vw;
+  }
+  .reels{
     display:flex;
     align-items:center;
     justify-content:center;
     gap:4vw;
-    padding:6vh 4vw;
   }
-  .diptych video{
+  .reels video{
     height:82vh;
     width:auto;
     max-width:44vw;
@@ -106,12 +120,14 @@
   }
 
   /* ---------- 4. Stills — three ordered rows of four ---------- */
+  .stills-section{
+    padding:14vh 6vw;
+    background:var(--cocoa);
+  }
   .stills{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:3vw;
-    padding:14vh 6vw;
-    background:var(--cocoa);
   }
   .stills img{
     width:100%;
@@ -139,27 +155,27 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width:900px){
-    .diptych{
+    .diptych{ padding:6vh 5vw; }
+    .reels{
       flex-direction:column;
       gap:4vh;
-      padding:6vh 5vw;
     }
-    .diptych video{
+    .reels video{
       height:70vh;
       max-width:90vw;
     }
+    .stills-section{ padding:10vh 6vw; }
     .stills{
       grid-template-columns:repeat(2,1fr);
       gap:4vw;
-      padding:10vh 6vw;
     }
   }
 
   @media (max-width:480px){
+    .stills-section{ padding:8vh 7vw; }
     .stills{
       grid-template-columns:1fr;
       gap:8vh;
-      padding:8vh 7vw;
     }
     .close{ padding:16vh 7vw; }
   }
@@ -188,6 +204,8 @@
 
   <!-- 3 — Vertical diptych -->
   <section class="diptych" id="s-diptych">
+    <h2 class="section-head">Reel examples:</h2>
+    <div class="reels">
     <video class="reel"
            src="assets/body-oil-short.mp4"
            poster="assets/poster-body-oil-short.webp"
@@ -198,10 +216,13 @@
            poster="assets/poster-body-oil-hero.webp"
            playsinline controls preload="auto"
            aria-label="Body oil hero film, vertical"></video>
+    </div>
   </section>
 
   <!-- 4 — Stills: bottles, tubs, bottles -->
-  <section class="stills" id="s-stills">
+  <section class="stills-section" id="s-stills">
+    <h2 class="section-head">Product photography examples:</h2>
+    <div class="stills">
     <img src="assets/bottle-01.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil standing on dark marble, lit by a warm rim light.">
     <img src="assets/bottle-02.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil bottle photographed against a clean pale studio background.">
     <img src="assets/bottle-03.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil upright on veined white marble.">
@@ -216,6 +237,7 @@
     <img src="assets/bottle-06.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil lying in a shallow pool of amber oil.">
     <img src="assets/bottle-07.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil resting on a molten amber ground.">
     <img src="assets/bottle-08.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil seen from above among split cacao pods and cocoa beans.">
+    </div>
   </section>
 
   <!-- 5 — Close -->
