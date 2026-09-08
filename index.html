@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palmer's — Presentation by Final Cut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:SOFT,opsz,wght@0..100,9..144,300..700&display=swap">
+<style>
+  :root{
+    --cocoa:#2A1A11;
+    --butter:#F5EDE0;
+    --gold:#E0A24A;
+    --shade:#1A0F09;
+    --oil:#C88B4A;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    margin:0;
+    background:var(--cocoa);
+    color:var(--butter);
+    font-family:'Fraunces',Georgia,'Times New Roman',serif;
+    font-size:17px;
+    line-height:1.7;
+    font-weight:400;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  p{ max-width:60ch; }
+
+  img,video{ display:block; max-width:100%; }
+
+  /* Display register — Fraunces at low softness, tight tracking. */
+  .display{
+    font-size:5vw;
+    line-height:1.2;
+    letter-spacing:-0.015em;
+    font-weight:400;
+    font-variation-settings:'SOFT' 0,'opsz' 144,'WONK' 0;
+    margin:0;
+  }
+
+  /* Focus is always visible, and never gold. */
+  a:focus-visible,button:focus-visible{
+    outline:2px solid var(--butter);
+    outline-offset:4px;
+  }
+
+  /* ---------- 1. Title card ---------- */
+  .title-card{
+    min-height:100vh;
+    min-height:100svh;
+    background:var(--cocoa);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 6vw;
+  }
+  .title-line{
+    margin:0;
+    max-width:none;
+    text-align:center;
+    color:var(--butter);
+    font-size:clamp(19px,1.5vw,30px);
+    line-height:1.6;
+    letter-spacing:0.01em;
+    font-weight:300;
+    font-variation-settings:'SOFT' 20,'opsz' 24,'WONK' 0;
+    opacity:0;
+    transform:translateY(10px);
+    animation:riseIn 1.4s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- 2. Tahiti film ---------- */
+  .film{
+    position:relative;
+    width:100%;
+    background:var(--shade);
+    line-height:0;
+  }
+  .film video{
+    width:100%;
+    min-height:78vh;
+    height:78vh;
+    object-fit:cover;
+    background:var(--shade);
+  }
+  .sound{
+    position:absolute;
+    right:3vw;
+    bottom:3vw;
+    margin:0;
+    padding:6px 2px;
+    background:none;
+    border:0;
+    font-family:inherit;
+    font-size:16px;
+    line-height:1.2;
+    font-weight:400;
+    letter-spacing:0.01em;
+    color:var(--gold);
+    opacity:0.7;
+    cursor:pointer;
+  }
+
+  /* ---------- 3. Statement ---------- */
+  .statement{
+    padding:16vh 6vw;
+    text-align:center;
+    background:var(--cocoa);
+  }
+  .statement p{
+    margin:0 auto;
+    max-width:22ch;
+    font-size:max(22px,3.2vw);
+    color:var(--butter);
+  }
+
+  /* ---------- 4. Vertical diptych ---------- */
+  .diptych{
+    min-height:100vh;
+    min-height:100svh;
+    background:var(--shade);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4vw;
+    padding:6vh 4vw;
+  }
+  .diptych video{
+    height:82vh;
+    width:auto;
+    max-width:44vw;
+    object-fit:contain;
+    background:var(--shade);
+  }
+
+  /* ---------- 5. Stills ---------- */
+  .stills{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    column-gap:4vw;
+    row-gap:2vw;
+    padding:18vh 6vw;
+    background:var(--cocoa);
+  }
+  .stills img{
+    width:100%;
+    height:auto;
+    object-fit:contain;
+    align-self:start;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+  }
+
+  /* Deliberately staggered — varied spans, varied vertical offsets. */
+  .stills img:nth-child(1) { grid-column:2 / span 5;  grid-row:1; }
+  .stills img:nth-child(2) { grid-column:8 / span 4;  grid-row:1; margin-top:14vw; }
+  .stills img:nth-child(3) { grid-column:1 / span 4;  grid-row:2; margin-top:6vw; }
+  .stills img:nth-child(4) { grid-column:6 / span 6;  grid-row:2; }
+  .stills img:nth-child(5) { grid-column:4 / span 6;  grid-row:3; margin-top:8vw; }
+  .stills img:nth-child(6) { grid-column:1 / span 4;  grid-row:4; }
+  .stills img:nth-child(7) { grid-column:6 / span 5;  grid-row:4; margin-top:12vw; }
+  .stills img:nth-child(8) { grid-column:9 / span 4;  grid-row:5; }
+  .stills img:nth-child(9) { grid-column:2 / span 5;  grid-row:5; margin-top:7vw; }
+  .stills img:nth-child(10){ grid-column:5 / span 7;  grid-row:6; margin-top:9vw; }
+  .stills img:nth-child(11){ grid-column:1 / span 4;  grid-row:7; }
+  .stills img:nth-child(12){ grid-column:7 / span 5;  grid-row:7; margin-top:11vw; }
+  .stills img:nth-child(13){ grid-column:3 / span 5;  grid-row:8; margin-top:5vw; }
+  .stills img:nth-child(14){ grid-column:9 / span 4;  grid-row:8; margin-top:16vw; }
+
+  /* ---------- 6. Close ---------- */
+  .close{
+    padding:22vh 6vw;
+    text-align:center;
+    background:var(--cocoa);
+  }
+  .close p{
+    margin:0 auto;
+    max-width:20ch;
+    font-size:max(26px,4vw);
+    color:var(--butter);
+  }
+  .stop{ color:var(--gold); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .diptych{
+      flex-direction:column;
+      gap:4vh;
+      padding:6vh 5vw;
+      min-height:auto;
+    }
+    .diptych video{
+      height:70vh;
+      max-width:90vw;
+    }
+  }
+
+  @media (max-width:760px){
+    .stills{
+      grid-template-columns:1fr;
+      column-gap:0;
+      row-gap:12vh;
+      padding:12vh 7vw;
+    }
+    .stills img{
+      grid-column:1 / -1 !important;
+      grid-row:auto !important;
+      margin-top:0 !important;
+    }
+    .film video{ min-height:60vh; height:60vh; }
+    .sound{ right:6vw; bottom:6vw; }
+    .statement{ padding:12vh 7vw; }
+    .close{ padding:16vh 7vw; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .title-line{
+      animation:none;
+      opacity:1;
+      transform:none;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 1 — Title card -->
+  <section class="title-card" id="s-title">
+    <p class="title-line">Presentation for Palmer&rsquo;s, prepared by Final Cut.</p>
+  </section>
+
+  <!-- 2 — Tahiti Is a Feeling -->
+  <section class="film" id="s-film">
+    <video id="tahiti"
+           src="assets/tahiti.mp4"
+           poster="assets/poster-tahiti.webp"
+           autoplay muted loop playsinline preload="auto"
+           aria-label="Tahiti Is a Feeling — brand film"></video>
+    <button id="soundToggle" class="sound" type="button">Sound</button>
+  </section>
+
+  <!-- 3 — Statement -->
+  <section class="statement" id="s-statement">
+    <p class="display">A hundred and eighty years of cocoa, photographed for the first time in a language this brand actually owns.</p>
+  </section>
+
+  <!-- 4 — Vertical diptych -->
+  <section class="diptych" id="s-diptych">
+    <video src="assets/body-oil-short.mp4"
+           poster="assets/poster-body-oil-short.webp"
+           autoplay muted loop playsinline preload="auto"
+           aria-label="Body oil short film, vertical"></video>
+    <video src="assets/body-oil-hero.mp4"
+           poster="assets/poster-body-oil-hero.webp"
+           autoplay muted loop playsinline preload="auto"
+           aria-label="Body oil hero film, vertical"></video>
+  </section>
+
+  <!-- 5 — Stills -->
+  <section class="stills" id="s-stills">
+    <img src="assets/still-01.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil standing on dark marble, lit by a warm rim light.">
+    <img src="assets/still-02.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil bottle photographed against a clean pale studio background.">
+    <img src="assets/still-03.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil upright on veined white marble.">
+    <img src="assets/still-04.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil on black marble above a pool of amber light.">
+    <img src="assets/still-05.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil on a wet reflective surface beneath a blue horizon.">
+    <img src="assets/still-06.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil lying in a shallow pool of amber oil.">
+    <img src="assets/still-07.webp" width="1344" height="1800" loading="lazy" alt="Open jar of Palmer's Cocoa Butter Formula beside its lid, with cocoa butter and oil on sand.">
+    <img src="assets/still-08.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil resting on a molten amber ground.">
+    <img src="assets/still-09.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula on a black reflective surface, mirrored below.">
+    <img src="assets/still-10.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula among falling pink petals.">
+    <img src="assets/still-11.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula nested in pink rose petals.">
+    <img src="assets/still-12.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil seen from above among split cacao pods and cocoa beans.">
+    <img src="assets/still-13.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil propped in a split cacao pod, surrounded by cocoa beans.">
+    <img src="assets/still-14.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil beside a cacao pod, oil pooling on a cream ground.">
+  </section>
+
+  <!-- 6 — Close -->
+  <section class="close" id="s-close">
+    <p class="display">Made entirely with AI<span class="stop">.</span></p>
+  </section>
+
+<script>
+  (function(){
+    var film = document.getElementById('tahiti');
+    var btn  = document.getElementById('soundToggle');
+    btn.addEventListener('click', function(){
+      film.muted = !film.muted;
+      btn.textContent = film.muted ? 'Sound' : 'Mute';
+      if(!film.muted){ film.play(); }
+    });
+    // Some browsers refuse the initial autoplay; retry once muted.
+    Array.prototype.forEach.call(document.querySelectorAll('video'), function(v){
+      var p = v.play();
+      if(p && p.catch){ p.catch(function(){ v.muted = true; v.play(); }); }
+    });
+  })();
+</script>
+
+</body>
+</html>
