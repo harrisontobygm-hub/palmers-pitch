@@ -46,26 +46,20 @@
     margin:0;
   }
 
-  /* Focus is always visible, and never gold. */
-  a:focus-visible,button:focus-visible{
+  a:focus-visible,button:focus-visible,video:focus-visible{
     outline:2px solid var(--butter);
     outline-offset:4px;
   }
 
   /* ---------- 1. Title card ---------- */
   .title-card{
-    min-height:100vh;
-    min-height:100svh;
     background:var(--cocoa);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0 6vw;
+    padding:22px 6vw;
+    text-align:center;
   }
   .title-line{
-    margin:0;
+    margin:0 auto;
     max-width:none;
-    text-align:center;
     color:var(--butter);
     font-size:clamp(19px,1.5vw,30px);
     line-height:1.6;
@@ -78,55 +72,24 @@
   }
   @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
 
-  /* ---------- 2. Tahiti film ---------- */
+  /* ---------- 2. Tahiti film — whole frame, never cropped ---------- */
   .film{
-    position:relative;
-    width:100%;
     background:var(--shade);
     line-height:0;
   }
   .film video{
+    display:block;
     width:100%;
-    min-height:78vh;
-    height:78vh;
-    object-fit:cover;
+    max-width:1920px;     /* its own resolution — never upscaled past it */
+    height:auto;
+    aspect-ratio:16 / 9;  /* the frame it was shot for */
+    object-fit:contain;
+    margin:0 auto;
     background:var(--shade);
   }
-  .sound{
-    position:absolute;
-    right:3vw;
-    bottom:3vw;
-    margin:0;
-    padding:6px 2px;
-    background:none;
-    border:0;
-    font-family:inherit;
-    font-size:16px;
-    line-height:1.2;
-    font-weight:400;
-    letter-spacing:0.01em;
-    color:var(--gold);
-    opacity:0.7;
-    cursor:pointer;
-  }
 
-  /* ---------- 3. Statement ---------- */
-  .statement{
-    padding:16vh 6vw;
-    text-align:center;
-    background:var(--cocoa);
-  }
-  .statement p{
-    margin:0 auto;
-    max-width:22ch;
-    font-size:max(22px,3.2vw);
-    color:var(--butter);
-  }
-
-  /* ---------- 4. Vertical diptych ---------- */
+  /* ---------- 3. Vertical diptych ---------- */
   .diptych{
-    min-height:100vh;
-    min-height:100svh;
     background:var(--shade);
     display:flex;
     align-items:center;
@@ -142,42 +105,25 @@
     background:var(--shade);
   }
 
-  /* ---------- 5. Stills ---------- */
+  /* ---------- 4. Stills — three ordered rows of four ---------- */
   .stills{
     display:grid;
-    grid-template-columns:repeat(12,1fr);
-    column-gap:4vw;
-    row-gap:2vw;
-    padding:18vh 6vw;
+    grid-template-columns:repeat(4,1fr);
+    gap:3vw;
+    padding:14vh 6vw;
     background:var(--cocoa);
   }
   .stills img{
     width:100%;
-    height:auto;
-    object-fit:contain;
-    align-self:start;
+    height:auto;          /* let aspect-ratio drive the box, not the HTML attribute */
+    aspect-ratio:3 / 4;
+    object-fit:cover;
     border:0;
     border-radius:0;
     box-shadow:none;
   }
 
-  /* Deliberately staggered — varied spans, varied vertical offsets. */
-  .stills img:nth-child(1) { grid-column:2 / span 5;  grid-row:1; }
-  .stills img:nth-child(2) { grid-column:8 / span 4;  grid-row:1; margin-top:14vw; }
-  .stills img:nth-child(3) { grid-column:1 / span 4;  grid-row:2; margin-top:6vw; }
-  .stills img:nth-child(4) { grid-column:6 / span 6;  grid-row:2; }
-  .stills img:nth-child(5) { grid-column:4 / span 6;  grid-row:3; margin-top:8vw; }
-  .stills img:nth-child(6) { grid-column:1 / span 4;  grid-row:4; }
-  .stills img:nth-child(7) { grid-column:6 / span 5;  grid-row:4; margin-top:12vw; }
-  .stills img:nth-child(8) { grid-column:9 / span 4;  grid-row:5; }
-  .stills img:nth-child(9) { grid-column:2 / span 5;  grid-row:5; margin-top:7vw; }
-  .stills img:nth-child(10){ grid-column:5 / span 7;  grid-row:6; margin-top:9vw; }
-  .stills img:nth-child(11){ grid-column:1 / span 4;  grid-row:7; }
-  .stills img:nth-child(12){ grid-column:7 / span 5;  grid-row:7; margin-top:11vw; }
-  .stills img:nth-child(13){ grid-column:3 / span 5;  grid-row:8; margin-top:5vw; }
-  .stills img:nth-child(14){ grid-column:9 / span 4;  grid-row:8; margin-top:16vw; }
-
-  /* ---------- 6. Close ---------- */
+  /* ---------- 5. Close ---------- */
   .close{
     padding:22vh 6vw;
     text-align:center;
@@ -197,38 +143,29 @@
       flex-direction:column;
       gap:4vh;
       padding:6vh 5vw;
-      min-height:auto;
     }
     .diptych video{
       height:70vh;
       max-width:90vw;
     }
+    .stills{
+      grid-template-columns:repeat(2,1fr);
+      gap:4vw;
+      padding:10vh 6vw;
+    }
   }
 
-  @media (max-width:760px){
+  @media (max-width:480px){
     .stills{
       grid-template-columns:1fr;
-      column-gap:0;
-      row-gap:12vh;
-      padding:12vh 7vw;
+      gap:8vh;
+      padding:8vh 7vw;
     }
-    .stills img{
-      grid-column:1 / -1 !important;
-      grid-row:auto !important;
-      margin-top:0 !important;
-    }
-    .film video{ min-height:60vh; height:60vh; }
-    .sound{ right:6vw; bottom:6vw; }
-    .statement{ padding:12vh 7vw; }
     .close{ padding:16vh 7vw; }
   }
 
   @media (prefers-reduced-motion:reduce){
-    .title-line{
-      animation:none;
-      opacity:1;
-      transform:none;
-    }
+    .title-line{ animation:none; opacity:1; transform:none; }
   }
 </style>
 </head>
@@ -244,65 +181,106 @@
     <video id="tahiti"
            src="assets/tahiti.mp4"
            poster="assets/poster-tahiti.webp"
-           autoplay muted loop playsinline preload="auto"
+           width="1920" height="1080"
+           autoplay loop playsinline controls preload="auto"
            aria-label="Tahiti Is a Feeling — brand film"></video>
-    <button id="soundToggle" class="sound" type="button">Sound</button>
   </section>
 
-  <!-- 3 — Statement -->
-  <section class="statement" id="s-statement">
-    <p class="display">A hundred and eighty years of cocoa, photographed for the first time in a language this brand actually owns.</p>
-  </section>
-
-  <!-- 4 — Vertical diptych -->
+  <!-- 3 — Vertical diptych -->
   <section class="diptych" id="s-diptych">
-    <video src="assets/body-oil-short.mp4"
+    <video class="reel"
+           src="assets/body-oil-short.mp4"
            poster="assets/poster-body-oil-short.webp"
-           autoplay muted loop playsinline preload="auto"
+           playsinline controls preload="auto"
            aria-label="Body oil short film, vertical"></video>
-    <video src="assets/body-oil-hero.mp4"
+    <video class="reel"
+           src="assets/body-oil-hero.mp4"
            poster="assets/poster-body-oil-hero.webp"
-           autoplay muted loop playsinline preload="auto"
+           playsinline controls preload="auto"
            aria-label="Body oil hero film, vertical"></video>
   </section>
 
-  <!-- 5 — Stills -->
+  <!-- 4 — Stills: bottles, tubs, bottles -->
   <section class="stills" id="s-stills">
-    <img src="assets/still-01.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil standing on dark marble, lit by a warm rim light.">
-    <img src="assets/still-02.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil bottle photographed against a clean pale studio background.">
-    <img src="assets/still-03.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil upright on veined white marble.">
-    <img src="assets/still-04.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil on black marble above a pool of amber light.">
-    <img src="assets/still-05.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil on a wet reflective surface beneath a blue horizon.">
-    <img src="assets/still-06.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil lying in a shallow pool of amber oil.">
-    <img src="assets/still-07.webp" width="1344" height="1800" loading="lazy" alt="Open jar of Palmer's Cocoa Butter Formula beside its lid, with cocoa butter and oil on sand.">
-    <img src="assets/still-08.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil resting on a molten amber ground.">
-    <img src="assets/still-09.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula on a black reflective surface, mirrored below.">
-    <img src="assets/still-10.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula among falling pink petals.">
-    <img src="assets/still-11.webp" width="1344" height="1800" loading="lazy" alt="Jar of Palmer's Cocoa Butter Formula nested in pink rose petals.">
-    <img src="assets/still-12.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil seen from above among split cacao pods and cocoa beans.">
-    <img src="assets/still-13.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil propped in a split cacao pod, surrounded by cocoa beans.">
-    <img src="assets/still-14.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil beside a cacao pod, oil pooling on a cream ground.">
+    <img src="assets/bottle-01.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil standing on dark marble, lit by a warm rim light.">
+    <img src="assets/bottle-02.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil bottle photographed against a clean pale studio background.">
+    <img src="assets/bottle-03.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil upright on veined white marble.">
+    <img src="assets/bottle-04.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Shimmer Radiance Body Oil on black marble above a pool of amber light.">
+
+    <img src="assets/tub-01.webp" width="1344" height="1800" loading="lazy" alt="Open tub of Palmer's Cocoa Butter Formula beside its lid, with cocoa butter and oil on sand.">
+    <img src="assets/tub-02.webp" width="1344" height="1800" loading="lazy" alt="Tub of Palmer's Cocoa Butter Formula on a black reflective surface, mirrored below.">
+    <img src="assets/tub-03.webp" width="1344" height="1800" loading="lazy" alt="Tub of Palmer's Cocoa Butter Formula among falling pink petals.">
+    <img src="assets/tub-04.webp" width="1344" height="1800" loading="lazy" alt="Tub of Palmer's Cocoa Butter Formula nested in pink rose petals.">
+
+    <img src="assets/bottle-05.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil on a wet reflective surface beneath a blue horizon.">
+    <img src="assets/bottle-06.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil lying in a shallow pool of amber oil.">
+    <img src="assets/bottle-07.webp" width="1344" height="1800" loading="lazy" alt="Palmer's Skin Therapy Oil resting on a molten amber ground.">
+    <img src="assets/bottle-08.webp" width="1005" height="1800" loading="lazy" alt="Palmer's Cocoa Butter Formula Body Oil seen from above among split cacao pods and cocoa beans.">
   </section>
 
-  <!-- 6 — Close -->
+  <!-- 5 — Close -->
   <section class="close" id="s-close">
     <p class="display">Made entirely with AI<span class="stop">.</span></p>
   </section>
 
 <script>
   (function(){
+    /* ---- Lead film: sound on from the start wherever the browser permits it ---- */
     var film = document.getElementById('tahiti');
-    var btn  = document.getElementById('soundToggle');
-    btn.addEventListener('click', function(){
-      film.muted = !film.muted;
-      btn.textContent = film.muted ? 'Sound' : 'Mute';
-      if(!film.muted){ film.play(); }
+
+    /* Distinguish the viewer's audio choices from our own, without racing:
+       compare each volumechange against the last value we set ourselves. */
+    var lastSetByUs = null;
+    var viewerSetAudio = false;
+    film.addEventListener('volumechange', function(){
+      if(film.muted !== lastSetByUs){ viewerSetAudio = true; }
     });
-    // Some browsers refuse the initial autoplay; retry once muted.
-    Array.prototype.forEach.call(document.querySelectorAll('video'), function(v){
-      var p = v.play();
-      if(p && p.catch){ p.catch(function(){ v.muted = true; v.play(); }); }
-    });
+    function setMuted(m){ lastSetByUs = m; film.muted = m; }
+
+    setMuted(false);
+    var attempt = film.play();
+
+    if(attempt && attempt.catch){
+      attempt.catch(function(){
+        /* Sound-on autoplay is blocked until the viewer interacts.
+           Start silent, then bring the sound up the moment they do. */
+        setMuted(true);
+        film.play();
+
+        /* Only gestures that grant user activation — a wheel event does not,
+           and unmuting without it makes the browser pause the film. */
+        var events = ['pointerdown','mousedown','click','keydown','touchstart'];
+        var unmute = function(){
+          events.forEach(function(e){ window.removeEventListener(e, unmute, true); });
+          if(viewerSetAudio){ return; }        /* they chose silence — leave it */
+          setMuted(false);
+          if(film.paused){
+            var p = film.play();
+            if(p && p.catch){ p.catch(function(){}); }
+          }
+        };
+        events.forEach(function(e){ window.addEventListener(e, unmute, true); });
+      });
+    }
+
+    /* ---- Reels: one silent pass when scrolled to, then they belong to the viewer ---- */
+    var reels = document.querySelectorAll('.reel');
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var v = entry.target;
+          if(entry.isIntersecting && !v.dataset.autoplayed){
+            v.dataset.autoplayed = '1';
+            v.muted = true;
+            var p = v.play();
+            if(p && p.catch){ p.catch(function(){}); }
+          }
+        });
+      }, {threshold:0.4});
+      Array.prototype.forEach.call(reels, function(v){ io.observe(v); });
+    } else {
+      Array.prototype.forEach.call(reels, function(v){ v.muted = true; v.play(); });
+    }
   })();
 </script>
 
